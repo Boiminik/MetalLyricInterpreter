@@ -1,14 +1,15 @@
 import asyncio
 import requests
 
-async def getSongs():
-    client_id = "V6x81QBlfEDMKzRQJsYHr-Ae9xFv3bMCF6ulqnhjSjoYttwpI7O8cZVQFjhqn_cJ"
-    redirect_uri = "http://localhost"
-    scope = "me"
-    state = ""
-    response_type = "code"
-    response = requests.get(f"https://api.genius.com/oauth/authorize?client_id={client_id}&redirect_uri={redirect_uri}&scope={scope}&state={state}&response_type={response_type}")
-    print(response.status_code)
+async def getSongs(songID):
+    AToken = "OX2CI4He1koN9YH1pporxZkTGkD5OxDV-3QMbgoqe3Xc8PlyiURq7Oskx9DYBsPX"
+    getSongs = requests.get(f"https://api.genius.com/songs/{songID}", headers={'Authorization': f"Bearer {AToken}"})
+    print(f"Status code:\n{getSongs.status_code}\n")
+    print(f"Raw Text:\n{getSongs.text}\n")
+    print(f"Raw JSON:\n{getSongs.json}\n")
 
 if __name__ == "__main__":
-    asyncio.run(getSongs())
+    songID = 12345
+    asyncio.run(getSongs(songID))
+
+    
